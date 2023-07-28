@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/firmware/**",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/dsu",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/clock",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/evsys",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/nvic",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/nvmctrl",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/port",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/pac",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/sercom",
+                "${workspaceFolder}/firmware/src/config/sam_c21n_xpro/peripheral/systick",
+                "${workspaceFolder}/firmware/src/packs/CMSIS/CMSIS/Core/Include",
+                "${workspaceFolder}/firmware/src/packs/ATSAMC21N18A_DFP",
+                "${env:USERPROFILE}/.mchp_packs/Microchip/SAMC21_DFP/3.3.72/samc21n"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "gcc-arm",
+            "compilerPath": "${env:Programfiles}/Microchip/xc32/v4.20/bin/xc32-gcc.exe"
+        }
+    ],
+    "version": 4
+}

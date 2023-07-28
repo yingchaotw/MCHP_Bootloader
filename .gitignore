@@ -1,0 +1,16 @@
+# 檔案名稱 .gitignore
+
+
+# 忽略 build, debug 目錄
+build/
+debug/
+
+# 忽略所有附檔名是 bin, elf, map 的檔案
+*.bin
+*.elf
+*.map
+
+# 忽略 壓縮檔
+BTL_Firmware.zip
+
+.vscode/settings.json

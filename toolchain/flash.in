@@ -1,0 +1,9 @@
+si 1
+r
+device ${MCU_DEVICE}
+speed 4000
+h
+loadbin ${HEXADECIMAL}, ${FLASH_START}
+verifybin ${HEXADECIMAL}, ${FLASH_START}
+g
+qc
