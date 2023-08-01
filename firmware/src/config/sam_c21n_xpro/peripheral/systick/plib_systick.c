@@ -42,7 +42,7 @@
 #include "plib_systick.h"
 
 
-void SYSTICK_TimerInitialize ( void )
+inline void SYSTICK_TimerInitialize ( void )
 {
     SysTick->CTRL = 0U;
     SysTick->VAL = 0U;

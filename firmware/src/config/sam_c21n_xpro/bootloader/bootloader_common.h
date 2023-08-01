@@ -57,7 +57,9 @@
 
 /* Bootloader Major and Minor version sent for a Read Version command (MAJOR.MINOR)*/
 #define BTL_MAJOR_VERSION                       0x00U
-#define BTL_MINOR_VERSION                       0x5AU
+#define BTL_MINOR_VERSION                       0x5BU
+
+#define BTL_TRIGGER_PATTERN                     (0x5048434DUL)
 
 #define FLASH_START                             (0x00000000UL)
 #define FLASH_LENGTH                            (0x40000UL)

@@ -51,43 +51,34 @@
 #include <stddef.h>                     // Defines NULL
 #include <stdbool.h>                    // Defines true
 #include <stdlib.h>                     // Defines EXIT_FAILURE
+#include <string.h>
 #include "definitions.h"                // SYS function prototypes
 
-#define BTL_TRIGGER_PATTERN (0x5048434DUL)
 
-static uint32_t *ramStart = (uint32_t *)BTL_TRIGGER_RAM_START;
 
 bool bootloader_Trigger(void)
 {
-    // uint32_t *NVMCTRL_Replacedata = NULL;
-    // NVMCTRL_Read(&NVMCTRL_Replacedata[0], 64, 0x7F0UL);
+  static uint32_t *ramStart = (uint32_t *)BTL_TRIGGER_RAM_START;
 
-//     Cheap delay. This should give at leat 1 ms delay.
-    // for (uint32_t i = 0; i < 2000; i++)
-    // {
-    //     asm("nop");
-    // }
-    
-    uint32_t capacity_charging_time = 0U;
-    while(!SWITCH_Get()){
-        capacity_charging_time++;
-        if(capacity_charging_time>0xFFF0U) break;
-    }
+  /* Cheap delay. This should give at leat 1 ms delay.   */
+  uint8_t capacitance_charging_time = 0U;
+  while(!(SWITCH_Get())){
+    if(capacitance_charging_time++>0x80U)  break;
+    // else    asm("nop");
+  }
 
-    /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter
-     * Bootloader.
-     */
-    if(BTL_TRIGGER_PATTERN == ramStart[0] && BTL_TRIGGER_PATTERN == ramStart[1] &&
-       BTL_TRIGGER_PATTERN == ramStart[2] && BTL_TRIGGER_PATTERN == ramStart[3])
-    {
-        ramStart[0] = 0;
-        return true;
-    }
+  /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter Bootloader. */
+  if( BTL_TRIGGER_PATTERN == *(ramStart+0) && BTL_TRIGGER_PATTERN == *(ramStart+1) &&
+      BTL_TRIGGER_PATTERN == *(ramStart+2) && BTL_TRIGGER_PATTERN == *(ramStart+3)){
+      *(ramStart+0) = 0;
+      return true;
+  }
 
-    /* Check for Switch press to enter Bootloader */
-    return (!SWITCH_Get())?true:false;
+  /* Check for Switch press to enter Bootloader */
+  return (!SWITCH_Get())?true:false;
 
 }
+
 
 // *****************************************************************************
 // *****************************************************************************

@@ -115,18 +115,17 @@ void SYS_Initialize ( void* data )
         run_Application(APP_START_ADDRESS);
     }
 
-    PORT_Initialize();
-    
+
     CLOCK_Initialize();
 
-    NVMCTRL_Initialize( );
+    NVMCTRL_Initialize();
 
     SERCOM1_USART_Initialize();
 
     // EVSYS_Initialize();
 
 	  SYSTICK_TimerInitialize();
-    PAC_Initialize();
+    // PAC_Initialize();
 
     NVIC_Initialize();
 

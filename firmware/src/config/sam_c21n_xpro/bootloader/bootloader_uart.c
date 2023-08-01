@@ -100,23 +100,25 @@ enum
 // *****************************************************************************
 // *****************************************************************************
 
-const uint8_t btl_guard[4] = {0x4D, 0x43, 0x48, 0x50};
+const uint8_t btl_guard[4] = { 
+    (uint8_t)(BTL_TRIGGER_PATTERN >> 0x00U),
+    (uint8_t)(BTL_TRIGGER_PATTERN >> 0x08U),
+    (uint8_t)(BTL_TRIGGER_PATTERN >> 0x10U),
+    (uint8_t)(BTL_TRIGGER_PATTERN >> 0x18U)};
 
 static uint32_t input_buffer[WORDS(OFFSET_SIZE + DATA_SIZE)];
 
 static uint32_t flash_data[WORDS(DATA_SIZE)];
-static uint32_t flash_addr          = 0;
+static uint32_t flash_addr          = 0UL;
 
-static uint32_t unlock_begin        = 0;
-static uint32_t unlock_end          = 0;
-static uint32_t data_size           = 0;
+static uint32_t unlock_begin        = 0UL;
+static uint32_t unlock_end          = 0UL;
+static uint32_t data_size           = 0UL;
 
-static uint8_t  input_command       = 0;
+static uint8_t  input_command       = 0U;
 
 static bool     packet_received     = false;
 static bool     flash_data_ready    = false;
-
-// static bool     uartBLActive        = false;
 
 typedef bool (*FLASH_ERASE_FPTR)(uint32_t);
 
@@ -132,11 +134,11 @@ typedef bool (*FLASH_WRITE_FPTR)(uint32_t*, uint32_t);
 /* Function to receive application firmware via UART/USART */
 static void input_task(void)
 {
-    static uint32_t ptr             = 0;
-    static uint32_t size            = 0;
+    static uint32_t ptr             = 0UL;
+    static uint32_t size            = 0UL;
     static bool     header_received = false;
     uint8_t         *byte_buf       = (uint8_t *)&input_buffer[0];
-    uint8_t         input_data      = 0;
+    uint8_t         input_data      = 0U;
 
     if (packet_received == true)
     {
@@ -266,14 +268,9 @@ static void command_task(void)
 
         crc_gen = bootloader_CRCGenerate(unlock_begin, (unlock_end - unlock_begin));
 
-        if (crc == crc_gen)
-        {
-            SERCOM1_USART_WriteByte(BL_RESP_CRC_OK);
-        }
-        else
-        {
-            SERCOM1_USART_WriteByte(BL_RESP_CRC_FAIL);
-        }
+        if (crc == crc_gen)     SERCOM1_USART_WriteByte(BL_RESP_CRC_OK);
+        else                    SERCOM1_USART_WriteByte(BL_RESP_CRC_FAIL);
+
     }
     else if (BL_CMD_RESET == input_command)
     {
@@ -296,8 +293,8 @@ static void command_task(void)
 static void flash_task(void)
 {
     uint32_t addr            = flash_addr;
-    uint32_t bytes_written   = 0;
-    uint32_t write_idx       = 0;
+    uint32_t bytes_written   = 0UL;
+    uint32_t write_idx       = 0UL;
 
     // data_size = Actual data bytes to write + Address 4 Bytes
     uint32_t bytes_to_write = (data_size - 4);
@@ -308,31 +305,20 @@ static void flash_task(void)
     // Lock region size is always bigger than the row size
     NVMCTRL_RegionUnlock(addr);
     /* Receive Next Bytes while waiting for memory to be ready */
-    while(NVMCTRL_IsBusy() == true)
-    {
-        input_task();
-    
-    }
+    while(NVMCTRL_IsBusy() == true)         input_task();
     /* Erase the Current sector */
     flash_erase_fptr(addr);
 
     /* Receive Next Bytes while waiting for memory to be ready */
-    while(NVMCTRL_IsBusy() == true)
-    {
-        input_task();
-    
-    }
+    while(NVMCTRL_IsBusy() == true)         input_task();
+
 
     for (bytes_written = 0; bytes_written < bytes_to_write; bytes_written += PAGE_SIZE)
     {
         flash_write_fptr(&flash_data[write_idx], addr);
 
         /* Receive Next Bytes while waiting for memory to be ready */
-        while(NVMCTRL_IsBusy() == true)
-        {
-            input_task();
-        
-        }
+        while(NVMCTRL_IsBusy() == true)     input_task();
 
         addr += PAGE_SIZE;
         write_idx += WORDS(PAGE_SIZE);
@@ -351,17 +337,9 @@ static void flash_task(void)
 void bootloader_UART_Tasks(void)
 {
 
-    // do{
-        input_task();
+    input_task();
 
-        if (flash_data_ready)
-        {
-            flash_task();
-        }
-        else if (packet_received)
-        {
-            command_task();
-        }
+    if (flash_data_ready)            flash_task();
+    else if (packet_received)        command_task();
 
-    // } while (uartBLActive);
 }

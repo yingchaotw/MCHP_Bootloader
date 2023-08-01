@@ -301,7 +301,7 @@ bool SERCOM1_USART_TransmitterIsReady( void )
     return transmitterStatus;
 }
 
-void SERCOM1_USART_WriteByte( int data )
+inline void SERCOM1_USART_WriteByte( int data )
 {
     /* Check if USART is ready for new data */
     while((SERCOM1_REGS->USART_INT.SERCOM_INTFLAG & SERCOM_USART_INT_INTFLAG_DRE_Msk) == 0U)

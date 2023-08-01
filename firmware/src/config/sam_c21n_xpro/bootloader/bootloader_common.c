@@ -94,7 +94,7 @@ uint16_t __WEAK bootloader_GetVersion( void )
 
 
 /* Function to Generate CRC using the device service unit peripheral on programmed data */
-uint32_t bootloader_CRCGenerate(uint32_t start_addr, uint32_t size)
+uint32_t __INLINE bootloader_CRCGenerate(uint32_t start_addr, uint32_t size)
 {
     uint32_t crc  = 0xffffffff;
 
@@ -115,8 +115,8 @@ void __NO_RETURN bootloader_TriggerReset(void)
 
 void run_Application(uint32_t address)
 {
-    uint32_t msp            = *(uint32_t *)(address);
-    uint32_t reset_vector   = *(uint32_t *)(address + 4);
+    const uint32_t msp            = *(uint32_t *)(address);
+    const uint32_t reset_vector   = *(uint32_t *)(address + 4);
 
     if (msp == 0xffffffff)
     {
@@ -124,7 +124,6 @@ void run_Application(uint32_t address)
     }
 
     /* Call Deinitialize routine to free any resources acquired by Bootloader */
-    // SYS_DeInitialize(NULL);
 
     __set_MSP(msp);
 

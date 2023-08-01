@@ -3,15 +3,15 @@
   <executable name="dist/sam_c21n_xpro/production/sam_c21n_xpro.X.production.elf">
     <memory name="program">
       <units>bytes</units>
-      <length>2048</length>
-      <used>1480</used>
-      <free>568</free>
+      <length>2000</length>
+      <used>1464</used>
+      <free>536</free>
     </memory>
     <memory name="data">
       <units>bytes</units>
       <length>16368</length>
-      <used>1920</used>
-      <free>14448</free>
+      <used>1904</used>
+      <free>14464</free>
     </memory>
   </executable>
 </project>
