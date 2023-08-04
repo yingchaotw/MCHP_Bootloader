@@ -1,12 +1,14 @@
 # UART Bootloader
 
-**Bootloader Version 0.91**
+**Bootloader Version 0.92**
 
 submodule: [Microchip-MPLAB-Harmony/bootloader](https://github.com/Microchip-MPLAB-Harmony/bootloader)
 
 In bat file set bin path and file name, then run `bootloader_script.bat`
 - modify linker script ROM_SIZE to 0x7d0
 - update and verify use command invoke bootload mode
+
+Modify linker script file, to apply ATSAMC21N17A & ATSAMC21N18A. But, it don't check RAM_SIZE and ROM_SIZE.
 
 
 ## Protocol(HEX) test

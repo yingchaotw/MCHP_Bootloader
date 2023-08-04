@@ -63,11 +63,12 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
  */
 #define ROM_SIZE  (2048 - 48)
 
-/* ROM Maximum size for ATSAMC21N17A - 0x20000 (ATSAMC21N18A's half) */
+/* ROM Maximum size for ATSAMC21N17A - 0x20000 */
+/* ROM Maximum size for ATSAMC21N18A - 0x40000 */
 
-#if (ROM_SIZE > 0x20000)
+/* #if (ROM_SIZE > 0x40000)
     #  error ROM_SIZE is greater than the max size of 0x20000
-#endif
+#endif */
 
 /* Bootloader Trigger pattern of length 16 Bytes needs to be stored
  * from starting of Ram by the application if it wants to
@@ -79,14 +80,15 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
  *     ram[n] = 0x5048434D;
  */
 #define RAM_START (0x20000000 + 0x10)
-
-/* RAM Maximum size for ATSAMC21N17A - 0x4000 (ATSAMC21N18A's half) */
-
 #define RAM_SIZE  (0x4000 - 0x10)
 
-#if (RAM_SIZE > 0x4000)
+/* RAM Maximum size for ATSAMC21N17A - 0x4000 */
+/* RAM Maximum size for ATSAMC21N18A - 0x8000 */
+
+/*  */
+/* #if (RAM_SIZE > 0x4000)
     #  error RAM_SIZE is greater than the max size of 0x4000
-#endif
+#endif */
 
 
 /*************************************************************************
