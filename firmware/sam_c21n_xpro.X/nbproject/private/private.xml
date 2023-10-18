@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/WorkSpace/microchip_bootloader/firmware/src/config/sam_c21n_xpro/bootloader/bootloader_uart.c</file>
-            <file>file:/D:/WorkSpace/microchip_bootloader/firmware/src/packs/CMSIS/CMSIS/Core/Include/cmsis_armclang_ltm.h</file>
-            <file>file:/D:/WorkSpace/microchip_bootloader/firmware/src/main.c</file>
-            <file>file:/D:/WorkSpace/microchip_bootloader/firmware/src/config/sam_c21n_xpro/initialization.c</file>
+            <file>file:/D:/_WorkSpace/microchip_bootloader/firmware/src/main.c</file>
+            <file>file:/D:/_WorkSpace/microchip_bootloader/firmware/src/config/sam_c21n_xpro/bootloader/bootloader_uart.c</file>
         </group>
     </open-files>
 </project-private>

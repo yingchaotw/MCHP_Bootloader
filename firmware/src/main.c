@@ -62,9 +62,8 @@ bool bootloader_Trigger(void)
 
   /* Cheap delay. This should give at leat 1 ms delay.   */
   uint8_t capacitance_charging_time = 0U;
-  while(!(SWITCH_Get())){
-    if(capacitance_charging_time++>0x80U)  break;
-    // else    asm("nop");
+  while((!SWITCH_Get())){
+    if(capacitance_charging_time++>0xF0U)  break;
   }
 
   /* Check for Bootloader Trigger Pattern in first 16 Bytes of RAM to enter Bootloader. */
@@ -90,7 +89,7 @@ int main ( void )
 {
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    GPIO_PC00_Clear();
+    LED_Clear(); //enter bootloader mode
 
     while (true)
     {

@@ -5,7 +5,7 @@ frameworkPath: ../../..
 processor: ATSAMC21N18A
 projectName: ''
 settings:
-  PackageFilter: bootloader;bsp;core;crypto;csp;dev_packs;harmony-services;net;quick_docs;usb
+  PackageFilter: bootloader;bsp;core;crypto;csp;dev_packs;harmony-services;quick_docs;usb
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
   CMSISPath: .\dev_packs\arm\CMSIS\5.8.0

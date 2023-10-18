@@ -68,7 +68,7 @@ children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: uart_bootloader, value: SERCOM1_USART}
+        attributes: {id: uart_bootloader, value: SERCOM7_USART}
 - type: Attachments
   children:
   - type: DirectDependency
@@ -92,10 +92,10 @@ children:
       - type: String
         attributes: {id: targetComponentID}
         children:
-        - {type: Value, value: sercom1}
+        - {type: Value, value: sercom7}
       - type: String
         attributes: {id: targetAttachmentID}
         children:
-        - {type: Value, value: SERCOM1_UART}
+        - {type: Value, value: SERCOM7_UART}
 - type: ElementPosition
   attributes: {x: '382', y: '108', id: uart_bootloader}

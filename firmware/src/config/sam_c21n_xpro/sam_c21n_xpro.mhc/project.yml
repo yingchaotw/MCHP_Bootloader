@@ -5,21 +5,21 @@ files:
   physicalPath: bootloader
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 085B38A767DF8FB43F9FBC572B5C5B11
-- generatedChecksum: D90D3BF68B090CEC5DE253E3675F27F7
+  userChecksum: 849D1660CDF9FD579C37CF24F7D39160
+- generatedChecksum: FFE89D7CB1B926C24E942F2C0A398C6C
   logicalPath: config/sam_c21n_xpro/bootloader
   name: bootloader_uart.c
   physicalPath: bootloader
   security: NON_SECURE
   type: SOURCE
-  userChecksum: D90D3BF68B090CEC5DE253E3675F27F7
-- generatedChecksum: D0F7CBCBAF0B170A31EB251C5A6DA6B6
+  userChecksum: C8918096A53C2073E2CDB4C2B021FE06
+- generatedChecksum: 8E011649F69B031171F67AEDE6CBEBB5
   logicalPath: config/sam_c21n_xpro
   name: initialization.c
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: D0F7CBCBAF0B170A31EB251C5A6DA6B6
+  userChecksum: 91BBBC781CE69DEB5CB8EB8DC82793D5
 - generatedChecksum: null
   logicalPath: ''
   name: main.c
@@ -27,13 +27,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: null
-- generatedChecksum: 40AC8D0F99C74C13529D8263218416B8
+- generatedChecksum: 4340BD22D3B0EFAAD45F8BA529A950D8
   logicalPath: config/sam_c21n_xpro/peripheral/clock
   name: plib_clock.c
   physicalPath: peripheral/clock
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 40AC8D0F99C74C13529D8263218416B8
+  userChecksum: 4340BD22D3B0EFAAD45F8BA529A950D8
 - generatedChecksum: 611EE7EB087806C22DEFE7AA240640DA
   logicalPath: config/sam_c21n_xpro/peripheral/dsu
   name: plib_dsu.c
@@ -69,27 +69,27 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 3483221AAE73B9C037B1C32D660DC400
-- generatedChecksum: 0DC06E7470E85DFBEBB61AB5426D3A95
+- generatedChecksum: C21A59290564A66F5BE9BC2D652F657F
   logicalPath: config/sam_c21n_xpro/peripheral/port
   name: plib_port.c
   physicalPath: peripheral/port
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 0DC06E7470E85DFBEBB61AB5426D3A95
-- generatedChecksum: F901C5D9C913AED79F5F7A030BA99702
+  userChecksum: C21A59290564A66F5BE9BC2D652F657F
+- generatedChecksum: B259056C2AEACF919F53AE930ED04086
   logicalPath: config/sam_c21n_xpro/peripheral/sercom/usart
-  name: plib_sercom1_usart.c
+  name: plib_sercom7_usart.c
   physicalPath: peripheral/sercom/usart
   security: NON_SECURE
   type: SOURCE
-  userChecksum: F901C5D9C913AED79F5F7A030BA99702
+  userChecksum: 350EE66F2957102715E9848876E6B866
 - generatedChecksum: 74CA27A7DD35813EE156018399B3C034
   logicalPath: config/sam_c21n_xpro/peripheral/systick
   name: plib_systick.c
   physicalPath: peripheral/systick
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 74CA27A7DD35813EE156018399B3C034
+  userChecksum: A43D2B1A4E1A071251A1EEA5E432572B
 - generatedChecksum: FC49B08100A9526530287EFA65DA4AC4
   logicalPath: config/sam_c21n_xpro
   name: startup_xc32.c
@@ -138,7 +138,7 @@ files:
   physicalPath: bootloader
   security: NON_SECURE
   type: HEADER
-  userChecksum: 68C216112E492AEA4D2DCDFF74A2DD87
+  userChecksum: DA55DCC81E50E0FF876233F80A5A5D20
 - generatedChecksum: 1FA672CC03EC16FF3BD936A0DFD11D37
   logicalPath: config/sam_c21n_xpro/bootloader
   name: bootloader_uart.h
@@ -258,13 +258,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: A52A7032E9AF67402533FE816424FE14
-- generatedChecksum: 423BB4A5AAD3BF9718C21404130AE139
+- generatedChecksum: 74C7AB67BD128EC372F9F2E3FCE53F32
   logicalPath: config/sam_c21n_xpro
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 423BB4A5AAD3BF9718C21404130AE139
+  userChecksum: 74C7AB67BD128EC372F9F2E3FCE53F32
 - generatedChecksum: 08797D9E3872E4E9460E8BABBC7A835E
   logicalPath: config/sam_c21n_xpro
   name: device.h
@@ -545,20 +545,20 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 2EEE78E89AA855B1C91A25E061E40C9F
-- generatedChecksum: 0695075B271499B88ABF11EED4758E23
+- generatedChecksum: F2354C78276271A03DDE8E346BDE68C6
   logicalPath: config/sam_c21n_xpro/peripheral/port
   name: plib_port.h
   physicalPath: peripheral/port
   security: NON_SECURE
   type: HEADER
-  userChecksum: 0695075B271499B88ABF11EED4758E23
-- generatedChecksum: BAA172ED344779593302064CEA10BB91
+  userChecksum: F2354C78276271A03DDE8E346BDE68C6
+- generatedChecksum: 94317A1B68F908405A5C32988BF6B2D9
   logicalPath: config/sam_c21n_xpro/peripheral/sercom/usart
-  name: plib_sercom1_usart.h
+  name: plib_sercom7_usart.h
   physicalPath: peripheral/sercom/usart
   security: NON_SECURE
   type: HEADER
-  userChecksum: BAA172ED344779593302064CEA10BB91
+  userChecksum: 94317A1B68F908405A5C32988BF6B2D9
 - generatedChecksum: 89D68FCEF2422C9008AB71DE144653CB
   logicalPath: config/sam_c21n_xpro/peripheral/sercom/usart
   name: plib_sercom_usart_common.h
@@ -880,14 +880,14 @@ files:
   physicalPath: ''
   security: NON_SECURE
   type: LINKER
-  userChecksum: F845F3C2240064A5B126027BAA6B2A9E
-- generatedChecksum: 083CB7C87E49EC4F7163B0758707566F
+  userChecksum: 5B6E880A04F76B3DA11DC3EAD32595A6
+- generatedChecksum: 261A779071A818AD02DBF71CCB4805AA
   logicalPath: ''
   name: pin_configurations.csv
   physicalPath: ''
   security: NON_SECURE
   type: IMPORTANT
-  userChecksum: 083CB7C87E49EC4F7163B0758707566F
+  userChecksum: 261A779071A818AD02DBF71CCB4805AA
 format_version: v1.0
 libraries: []
 settings:

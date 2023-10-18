@@ -76,8 +76,7 @@
 
 #define BTL_GUARD               (0x5048434DUL)
 
-enum
-{
+enum{
     BL_CMD_UNLOCK       = 0xa0,
     BL_CMD_DATA         = 0xa1,
     BL_CMD_VERIFY       = 0xa2,
@@ -85,8 +84,7 @@ enum
     BL_CMD_READ_VERSION = 0xa6,
 };
 
-enum
-{
+enum{
     BL_RESP_OK          = 0x50,
     BL_RESP_ERROR       = 0x51,
     BL_RESP_INVALID     = 0x52,
@@ -109,13 +107,13 @@ const uint8_t btl_guard[4] = {
 static uint32_t input_buffer[WORDS(OFFSET_SIZE + DATA_SIZE)];
 
 static uint32_t flash_data[WORDS(DATA_SIZE)];
-static uint32_t flash_addr          = 0UL;
+static uint32_t flash_addr          = 0;
 
-static uint32_t unlock_begin        = 0UL;
-static uint32_t unlock_end          = 0UL;
-static uint32_t data_size           = 0UL;
+static uint32_t unlock_begin        = 0;
+static uint32_t unlock_end          = 0;
+static uint32_t data_size           = 0;
 
-static uint8_t  input_command       = 0U;
+static uint8_t  input_command       = 0;
 
 static bool     packet_received     = false;
 static bool     flash_data_ready    = false;
@@ -132,71 +130,58 @@ typedef bool (*FLASH_WRITE_FPTR)(uint32_t*, uint32_t);
 // *****************************************************************************
 
 /* Function to receive application firmware via UART/USART */
-static void input_task(void)
-{
-    static uint32_t ptr             = 0UL;
-    static uint32_t size            = 0UL;
+static void input_task(void){
+    static uint32_t ptr             = 0;
+    static uint32_t size            = 0;
     static bool     header_received = false;
     uint8_t         *byte_buf       = (uint8_t *)&input_buffer[0];
-    uint8_t         input_data      = 0U;
+    uint8_t         input_data      = 0;
 
-    if (packet_received == true)
-    {
+    if (packet_received == true){
         return;
     }
 
-    if (SERCOM1_USART_ReceiverIsReady() == false)
-    {
+    if (SERCOM7_USART_ReceiverIsReady() == false){
+//        SERCOM7_USART_WriteByte(BL_RESP_ERROR);
         return;
     }
 
-    input_data = SERCOM1_USART_ReadByte();
+    input_data = SERCOM7_USART_ReadByte();
 
     /* Check if 100 ms have elapsed */
-    if (SYSTICK_TimerPeriodHasExpired())
-    {
+    if (SYSTICK_TimerPeriodHasExpired()){
         header_received = false;
         ptr = 0;
     }
 
-    if (header_received == false)
-    {
+    if (header_received == false){
         byte_buf[ptr++] = input_data;
 
         // Check for each guard byte and discard if mismatch
-        if (ptr <= GUARD_SIZE)
-        {
-            if (input_data != btl_guard[ptr-1])
-            {
+        if (ptr <= GUARD_SIZE){
+            if (input_data != btl_guard[ptr-1]){
                 ptr = 0;
             }
         }
-        else if (ptr == HEADER_SIZE)
-        {
-            if (input_buffer[GUARD_OFFSET] != BTL_GUARD)
-            {
-                SERCOM1_USART_WriteByte(BL_RESP_ERROR);
+        else if (ptr == HEADER_SIZE){
+            if (input_buffer[GUARD_OFFSET] != BTL_GUARD){
+                SERCOM7_USART_WriteByte(BL_RESP_ERROR);
             }
-            else
-            {
+            else{
                 size            = input_buffer[SIZE_OFFSET];
                 input_command   = (uint8_t)input_buffer[CMD_OFFSET];
                 header_received = true;
-                // uartBLActive    = true;
             }
 
             ptr = 0;
         }
     }
-    else if (header_received == true)
-    {
-        if (ptr < size)
-        {
+    else if (header_received == true){
+        if (ptr < size){
             byte_buf[ptr++] = input_data;
         }
 
-        if (ptr == size)
-        {
+        if (ptr == size){
             data_size = size;
             ptr = 0;
             size = 0;
@@ -209,57 +194,49 @@ static void input_task(void)
 }
 
 /* Function to process the received command */
-static void command_task(void)
-{
+static void command_task(void){
     uint32_t i;
 
-    if (BL_CMD_UNLOCK == input_command)
-    {
+    if (BL_CMD_UNLOCK == input_command){
         uint32_t begin  = (input_buffer[ADDR_OFFSET] & OFFSET_ALIGN_MASK);
 
         uint32_t end    = begin + (input_buffer[SIZE_OFFSET] & SIZE_ALIGN_MASK);
 
-        if (end > begin && end <= (FLASH_START + FLASH_LENGTH))
-        {
+        if (end > begin && end <= (FLASH_START + FLASH_LENGTH)){
             unlock_begin = begin;
             unlock_end = end;
-            SERCOM1_USART_WriteByte(BL_RESP_OK);
+            SERCOM7_USART_WriteByte(BL_RESP_OK);
         }
-        else
-        {
+        else{
             unlock_begin = 0;
             unlock_end = 0;
-            SERCOM1_USART_WriteByte(BL_RESP_ERROR);
+            SERCOM7_USART_WriteByte(BL_RESP_ERROR);
         }
     }
-    else if (BL_CMD_DATA == input_command)
-    {
+    else if (BL_CMD_DATA == input_command){
         flash_addr = (input_buffer[ADDR_OFFSET] & OFFSET_ALIGN_MASK);
 
-        if (unlock_begin <= flash_addr && flash_addr < unlock_end)
-        {
-            for (i = 0; i < WORDS(DATA_SIZE); i++)
-            {
+        if (unlock_begin <= flash_addr && flash_addr < unlock_end){
+            for (i = 0; i < WORDS(DATA_SIZE); i++){
                 flash_data[i] = input_buffer[i + DATA_OFFSET];
             }
 
             flash_data_ready = true;
 
-            SERCOM1_USART_WriteByte(BL_RESP_OK);
+            SERCOM7_USART_WriteByte(BL_RESP_OK);
         }
-        else
-        {
-            SERCOM1_USART_WriteByte(BL_RESP_ERROR);
+        else{
+            SERCOM7_USART_WriteByte(BL_RESP_ERROR);
         }
     }
     else if (BL_CMD_READ_VERSION == input_command)
     {
-        SERCOM1_USART_WriteByte(BL_RESP_OK);
+        SERCOM7_USART_WriteByte(BL_RESP_OK);
 
         // uint16_t btlVersion = bootloader_GetVersion();
 
-        SERCOM1_USART_WriteByte(BTL_MAJOR_VERSION & 0xFF);  // SERCOM1_USART_WriteByte(((btlVersion >> 8) & 0xFF));
-        SERCOM1_USART_WriteByte(BTL_MINOR_VERSION & 0xFF);  // SERCOM1_USART_WriteByte((btlVersion & 0xFF));
+        SERCOM7_USART_WriteByte(BTL_MAJOR_VERSION & 0xFF);  // SERCOM7_USART_WriteByte(((btlVersion >> 8) & 0xFF));
+        SERCOM7_USART_WriteByte(BTL_MINOR_VERSION & 0xFF);  // SERCOM7_USART_WriteByte((btlVersion & 0xFF));
     }
     else if (BL_CMD_VERIFY == input_command)
     {
@@ -268,21 +245,21 @@ static void command_task(void)
 
         crc_gen = bootloader_CRCGenerate(unlock_begin, (unlock_end - unlock_begin));
 
-        if (crc == crc_gen)     SERCOM1_USART_WriteByte(BL_RESP_CRC_OK);
-        else                    SERCOM1_USART_WriteByte(BL_RESP_CRC_FAIL);
+        if (crc == crc_gen)     SERCOM7_USART_WriteByte(BL_RESP_CRC_OK);
+        else                    SERCOM7_USART_WriteByte(BL_RESP_CRC_FAIL);
 
     }
     else if (BL_CMD_RESET == input_command)
     {
-        SERCOM1_USART_WriteByte(BL_RESP_OK);
+        SERCOM7_USART_WriteByte(BL_RESP_OK);
 
-        while(SERCOM1_USART_TransmitComplete() == false);
+        while(SERCOM7_USART_TransmitComplete() == false);
 
-        NVIC_SystemReset(); // bootloader_TriggerReset();
+        bootloader_TriggerReset();
     }
     else
     {
-        SERCOM1_USART_WriteByte(BL_RESP_INVALID);
+        SERCOM7_USART_WriteByte(BL_RESP_INVALID);
     }
 
     packet_received = false;

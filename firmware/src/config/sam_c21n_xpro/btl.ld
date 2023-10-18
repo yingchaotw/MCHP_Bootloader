@@ -61,7 +61,7 @@ ENTRY(__XC32_RESET_HANDLER_NAME)
                      (Rounded of to nearest erase boundary) whichever is
                      greater.
  */
-#define ROM_SIZE  (2048 - 48)
+#define ROM_SIZE  (2048)
 
 /* ROM Maximum size for ATSAMC21N17A - 0x20000 */
 /* ROM Maximum size for ATSAMC21N18A - 0x40000 */

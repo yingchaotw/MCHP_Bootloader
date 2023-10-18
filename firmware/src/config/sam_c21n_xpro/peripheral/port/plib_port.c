@@ -71,22 +71,23 @@
 void PORT_Initialize(void)
 {
    /************************** GROUP 0 Initialization *************************/
+   PORT_REGS->GROUP[0].PORT_DIR = 0x8000000U;
+   PORT_REGS->GROUP[0].PORT_OUT = 0x8000000U;
+   PORT_REGS->GROUP[0].PORT_PINCFG[27] = 0x0U;
 
+   PORT_REGS->GROUP[0].PORT_PMUX[13] = 0x0U;
 
    /************************** GROUP 1 Initialization *************************/
-   PORT_REGS->GROUP[1].PORT_PINCFG[30] = 0x1U;    //PB30 UART0_Tx
-   PORT_REGS->GROUP[1].PORT_PINCFG[31] = 0x1U;    //PB31 UART0_Rx
+   PORT_REGS->GROUP[1].PORT_PINCFG[4] = 0x2U;
 
-   PORT_REGS->GROUP[1].PORT_PMUX[15] = 0x22;
+   PORT_REGS->GROUP[1].PORT_PMUX[2] = 0x0U;
 
    /************************** GROUP 2 Initialization *************************/
-   PORT_REGS->GROUP[2].PORT_DIR = 0x1U;
    PORT_REGS->GROUP[2].PORT_OUT = 0x4000001U;
-   PORT_REGS->GROUP[2].PORT_PINCFG[0] = 0x0U;
-   PORT_REGS->GROUP[2].PORT_PINCFG[26] = 0x2U;
+   PORT_REGS->GROUP[2].PORT_PINCFG[12] = 0x1U;
+   PORT_REGS->GROUP[2].PORT_PINCFG[13] = 0x1U;
 
-   PORT_REGS->GROUP[2].PORT_PMUX[0] = 0x0U;
-   PORT_REGS->GROUP[2].PORT_PMUX[13] = 0x0U;
+   PORT_REGS->GROUP[2].PORT_PMUX[6] = 0x22U;
 
 
 }

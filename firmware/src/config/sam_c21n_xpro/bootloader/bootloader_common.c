@@ -124,6 +124,7 @@ void run_Application(uint32_t address)
     }
 
     /* Call Deinitialize routine to free any resources acquired by Bootloader */
+    SYS_DeInitialize(NULL);
 
     __set_MSP(msp);
 
